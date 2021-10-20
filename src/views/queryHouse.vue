@@ -3,7 +3,7 @@
  * @Author: Mogy
  * @Date: 2021-10-15 13:43:30
  * @LastEditors: Mogy
- * @LastEditTime: 2021-10-16 13:39:35
+ * @LastEditTime: 2021-10-20 15:03:10
 -->
 <template>
   <div>
@@ -39,13 +39,29 @@
 </template>
 
 <script>
+import { queryAllHouse, queryOneHouse } from "@/api/queryHouse.js";
 export default {
   data() {
-    return {};
+    return {
+      // 查询资产参数
+      inumber: "House1",
+    };
   },
   computed: {},
-  methods: {},
-  created() {},
+  methods: {
+    async queryAllHouse() {
+      let res = await queryAllHouse();
+      console.log(res, "queryAll");
+    },
+    async queryOneHouse() {
+      let res = await queryOneHouse({ inumber: this.inumber });
+      console.log(res, "queryOneHouse");
+    },
+  },
+  created() {
+    // this.queryAllHouse();
+    this.queryOneHouse();
+  },
   mounted() {},
 };
 </script>

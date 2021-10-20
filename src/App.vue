@@ -3,7 +3,7 @@
  * @Author: Mogy
  * @Date: 2021-10-13 15:44:13
  * @LastEditors: Mogy
- * @LastEditTime: 2021-10-16 10:24:41
+ * @LastEditTime: 2021-10-20 15:44:30
 -->
 <template>
   <div id="app">
@@ -27,14 +27,24 @@
               >关于我们</router-link
             >
           </li>
-          <li>
-            <router-link to="/news">新闻中心</router-link>
+          <li @click="changeTag('新闻中心')">
+            <router-link to="/news" :class="{ active: isActive == '新闻中心' }"
+              >新闻中心</router-link
+            >
           </li>
-          <li>
-            <router-link to="/queryHouse">房产查询</router-link>
+          <li @click="changeTag('房产查询')">
+            <router-link
+              to="/queryHouse"
+              :class="{ active: isActive == '房产查询' }"
+              >房产查询</router-link
+            >
           </li>
-          <li>
-            <router-link to="/houseUpdate">信息上链</router-link>
+          <li @click="changeTag('信息上链')">
+            <router-link
+              to="/houseUpdate"
+              :class="{ active: isActive == '信息上链' }"
+              >信息上链</router-link
+            >
           </li>
         </ul>
       </el-header>
@@ -72,14 +82,16 @@ export default {
   },
   computed: {},
   methods: {
-    async changeTag(tagName) {
-      await this.$nextTick(() => {
+    changeTag(tagName) {
+      this.$nextTick(() => {
         console.log(tagName);
         this.isActive = tagName;
       });
     },
   },
-  created() {},
+  created() {
+    this.changeTag("首页");
+  },
   mounted() {},
 };
 </script>
@@ -103,14 +115,11 @@ export default {
   margin-top: -25px;
 }
 .el-header .menu li {
+  // background: #999999;
   float: left;
-  display: block;
+  // display: block;
   text-align: center;
   margin-right: 20px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: transparent;
-  // border-bottom: 2px solid;
 }
 .el-header .menu li a {
   display: block;
@@ -124,7 +133,8 @@ export default {
   border-bottom-color: rgb(43, 43, 43);
 }
 .active {
-  color: red;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
   border-bottom-color: rgb(43, 43, 43);
 }
 .el-header {
