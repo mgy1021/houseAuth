@@ -3,7 +3,7 @@
  * @Author: Mogy
  * @Date: 2021-10-13 15:44:13
  * @LastEditors: Mogy
- * @LastEditTime: 2021-10-15 13:46:18
+ * @LastEditTime: 2021-10-21 13:08:54
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -37,6 +37,11 @@ const routes = [
     path: '/queryHouse',
     name: 'QueryHouse',
     component: () => import('../views/queryHouse.vue')
+  },
+  {
+    path: '/house',
+    name: 'House',
+    component: () => import('../views/house.vue')
   }
 ]
 
