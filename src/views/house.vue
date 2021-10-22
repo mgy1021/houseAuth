@@ -3,7 +3,7 @@
  * @Author: Mogy
  * @Date: 2021-10-21 13:08:06
  * @LastEditors: Mogy
- * @LastEditTime: 2021-10-22 10:18:11
+ * @LastEditTime: 2021-10-22 10:57:13
 -->
 <template>
   <div class="mb50px">
@@ -122,12 +122,12 @@
             <template slot-scope="scope">
               <el-button
                 size="mini"
-                @click="handleEdit(scope.$index, scope.row)"
+                @click="handleDetails(scope.$index, scope.row)"
                 >详情</el-button
               >
               <el-button
                 size="mini"
-                @click="handleDelete(scope.$index, scope.row)"
+                @click="handlePrint(scope.$index, scope.row)"
                 >打印</el-button
               >
             </template>
@@ -160,9 +160,15 @@ export default {
     },
     async queryOneHouse() {
       let res = await queryOneHouse({ inumber: this.inumber });
-      console.log(res.data, "queryOneHouse");
+      // console.log(res.data, "queryOneHouse");
       this.userInfo = res.data;
       this.tableData = res.data.houses;
+    },
+    handleDetails() {
+      console.log("查看详情");
+    },
+    handlePrint() {
+      console.log("打印");
     },
   },
   created() {

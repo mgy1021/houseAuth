@@ -150,7 +150,7 @@ export default {
   .login_box {
     color: rgb(255, 255, 255);
     width: 706px;
-    height: 373px;
+    height: 420px;
     background-image: url(../assets/login.png.webp);
     position: absolute;
     top: 50%;
