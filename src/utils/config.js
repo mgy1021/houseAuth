@@ -3,13 +3,13 @@
  * @Author: Mogy
  * @Date: 2021-06-29 15:03:00
  * @LastEditors: Mogy
- * @LastEditTime: 2021-10-20 13:27:25
+ * @LastEditTime: 2021-10-23 11:33:36
  */
 
 // axios请求的基路径
 const baseURL = 'http://192.168.2.81:3000'
 // cookie里token的key值
-const tokenKey = 'Authorization'
+const tokenKey = 'token'
 
 export {
     baseURL,

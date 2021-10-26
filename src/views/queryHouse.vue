@@ -3,11 +3,19 @@
  * @Author: Mogy
  * @Date: 2021-10-15 13:43:30
  * @LastEditors: Mogy
- * @LastEditTime: 2021-10-22 10:14:48
+ * @LastEditTime: 2021-10-23 12:38:13
 -->
 <template>
   <div>
-    <el-carousel class="carousel_box" trigger="click" height="750px">
+    <el-carousel
+      class="carousel_box"
+      trigger="click"
+      height="750px"
+      v-loading="loading"
+      element-loading-text="正在进行身份验证中..."
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)"
+    >
       <el-carousel-item v-for="item in 4" :key="item">
         <img
           src="@/assets/queryHouse1.jpg"
@@ -22,7 +30,7 @@
             <div class="textleft login_item_title">身份证号：</div>
             <div>
               <input
-                v-model="form.name"
+                v-model="inumber"
                 type="text"
                 style="width: 100%"
                 placeholder="请输入身份证号码"
@@ -115,15 +123,19 @@
 </template>
 
 <script>
+import axios from "axios";
 import { queryAllHouse, queryOneHouse } from "@/api/queryHouse.js";
+import { login } from "@/api/user.js";
+import { setToken } from "@/utils/auth.js";
 export default {
   data() {
     return {
       // 查询资产参数
-      inumber: "House1",
+      inumber: "",
       input3: "",
       select: 0,
       form: {},
+      loading: false,
     };
   },
   computed: {},
@@ -134,12 +146,42 @@ export default {
     },
 
     toSearch() {
-      this.$router.push({ path: "/house" });
+      this.loading = true;
+      this.toLogin();
+    },
+    toLogin() {
+      axios
+        .get("http://localhost:3081/network/getConnectFile")
+        .then(async (res) => {
+          this.loading = false;
+          // console.log(res.data, "JSON");
+          // this.queryOneHouse(res.data);
+          let v = await login({
+            inumber: this.inumber,
+            JSON: res.data,
+          });
+          if (v.status === 200) {
+            this.$router.push({ path: "/house" });
+          }
+          // setToken(v.data);
+          // this.$router.push({ path: "/house" });
+          // this.$message.success(v.message);
+        })
+        .catch((err) => {
+          this.loading = false;
+          console.log(err);
+          this.$message.error("请插入身份认证设备,重新校验!");
+        });
+    },
+    async queryOneHouse(config) {
+      let res = await queryOneHouse({ inumber: this.inumber, JSON: config });
+      console.log(res.data, "queryOneHouse");
+      // this.userInfo = res.data;
+      // this.tableData = res.data.houses;
     },
   },
   created() {
     // this.queryAllHouse();
-    // this.queryOneHouse();
   },
   mounted() {},
 };

@@ -3,20 +3,24 @@
  * @Author: Mogy
  * @Date: 2021-10-19 16:36:05
  * @LastEditors: Mogy
- * @LastEditTime: 2021-10-22 10:16:20
+ * @LastEditTime: 2021-10-26 09:28:43
  */
 import axios from 'axios';
 import qs from 'qs';
 import { Message } from '_element-ui@2.15.6@element-ui';
 import { baseURL } from './config'
+import { getToken } from './auth';
 const service = axios.create({
-    timeout: 10000,
+    timeout: 3000,
     baseURL,
 })
 
 // 请求拦截器
 service.interceptors.request.use(config => {
-    // Do something before request is sent
+    // 给每个请求设置token
+    if (getToken()) {
+        config.headers['token'] = getToken()
+    }
     return config;
 }, error => {
     // Do something with request error
@@ -27,7 +31,7 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(response => {
     // Do something before response is sent
     const { data: res } = response
-    if (res.status !== 200) {
+    if (res.status !== 200 && res.status !== 304) {
         if (res.status === 500) {
             // 后台服务器异常
             Message({

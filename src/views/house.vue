@@ -3,7 +3,7 @@
  * @Author: Mogy
  * @Date: 2021-10-21 13:08:06
  * @LastEditors: Mogy
- * @LastEditTime: 2021-10-22 10:57:13
+ * @LastEditTime: 2021-10-23 10:48:29
 -->
 <template>
   <div class="mb50px">
@@ -172,7 +172,7 @@ export default {
     },
   },
   created() {
-    this.queryOneHouse();
+    // this.queryOneHouse();
   },
   mounted() {},
 };

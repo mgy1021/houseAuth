@@ -3,7 +3,7 @@
  * @Author: Mogy
  * @Date: 2021-10-19 17:33:45
  * @LastEditors: Mogy
- * @LastEditTime: 2021-10-20 13:27:31
+ * @LastEditTime: 2021-10-25 18:06:06
  */
 import { get, post } from "@/utils/request.js"
 
@@ -20,3 +20,8 @@ export function queryOneHouse(params) {
 // export function houseUpChain(){
 //     return post()
 // }
+
+// 查询所有的房产信息
+export function test() {
+    return get("/carousel/findAll")
+}
