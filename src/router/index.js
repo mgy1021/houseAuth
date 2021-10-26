@@ -2,8 +2,13 @@
  * @Description: 
  * @Author: Mogy
  * @Date: 2021-10-13 15:44:13
+<<<<<<< HEAD
  * @LastEditors: Mogy
  * @LastEditTime: 2021-10-23 12:17:25
+=======
+ * @LastEditors: ljy
+ * @LastEditTime: 2021-10-22 15:38:11
+>>>>>>> 1e5687e2cce8f77618884352976130ff85474222
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -11,43 +16,54 @@ import Home from '../views/Home.vue'
 import { getToken } from "@/utils/auth"
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
-  {
-    path: '/news',
-    name: 'News',
-    component: () => import('../views/News.vue')
-  }, {
-    path: '/houseUpdate',
-    name: 'HouseUpdate',
-    component: () => import('../views/HouseUpdate.vue')
-  }, {
-    path: '/queryHouse',
-    name: 'QueryHouse',
-    component: () => import('../views/queryHouse.vue')
-  },
-  {
-    path: '/house',
-    name: 'House',
-    component: () => import('../views/house.vue')
-  }
+const routes = [{
+        path: '/',
+        name: 'Home',
+        component: Home
+    },
+    {
+        path: '/about',
+        name: 'About',
+        component: () =>
+            import ( /* webpackChunkName: "about" */ '../views/About.vue')
+    },
+    {
+        path: '/news',
+        name: 'News',
+        component: () =>
+            import ('../views/News.vue')
+    }, {
+        path: '/houseUpdate',
+        name: 'HouseUpdate',
+        component: () =>
+            import ('../views/HouseUpdate.vue')
+    }, {
+        path: '/queryHouse',
+        name: 'QueryHouse',
+        component: () =>
+            import ('../views/queryHouse.vue')
+    },
+    {
+        path: '/house',
+        name: 'House',
+        component: () =>
+            import ('../views/house.vue')
+    },
+    {
+        path: '/newDetails',
+        name: 'NewDetails',
+        component: () =>
+            import ('../views/newDetails.vue')
+    }
 ]
 
 const router = new VueRouter({
-  mode: 'hash',
-  base: process.env.BASE_URL,
-  routes
+    mode: 'hash',
+    base: process.env.BASE_URL,
+    routes
 })
 
+<<<<<<< HEAD
 // 路由拦截器
 // router.beforeEach(async (to, from, next) => {
 
@@ -106,3 +122,6 @@ const router = new VueRouter({
 
 
 export default router
+=======
+export default router
+>>>>>>> 1e5687e2cce8f77618884352976130ff85474222
