@@ -3,7 +3,7 @@
  * @Author: Mogy
  * @Date: 2021-10-13 15:44:13
  * @LastEditors: Mogy
- * @LastEditTime: 2021-10-20 15:51:20
+ * @LastEditTime: 2021-10-26 14:34:25
 -->
 <template>
   <div id="app">
@@ -90,7 +90,7 @@ export default {
     },
   },
   created() {
-    this.changeTag("首页");
+    // this.changeTag("首页");
   },
   mounted() {},
 };
