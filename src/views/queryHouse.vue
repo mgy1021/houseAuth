@@ -2,8 +2,8 @@
  * @Description: 
  * @Author: Mogy
  * @Date: 2021-10-15 13:43:30
- * @LastEditors: Mogy
- * @LastEditTime: 2021-10-23 12:38:13
+ * @LastEditors: ljy
+ * @LastEditTime: 2021-10-28 10:44:16
 -->
 <template>
   <div>
@@ -151,7 +151,7 @@ export default {
     },
     toLogin() {
       axios
-        .get("http://localhost:3081/network/getConnectFile")
+        .get("http://localhost:3082/network/getConnectFile")
         .then(async (res) => {
           this.loading = false;
           // console.log(res.data, "JSON");

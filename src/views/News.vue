@@ -1,17 +1,3 @@
-<!--
- * @Description: 
-<<<<<<< HEAD
- * @Author: Mogy
- * @Date: 2021-10-15 13:43:01
- * @LastEditors: ljy
- * @LastEditTime: 2021-10-27 14:35:09
-=======
- * @Author: ljy
- * @Date: 2021-10-22 11:29:02
- * @LastEditors: ljy
- * @LastEditTime: 2021-10-22 16:12:37
->>>>>>> 1e5687e2cce8f77618884352976130ff85474222
--->
 <template>
   <div class="news">
     <div class="header">
@@ -20,42 +6,51 @@
       <div class="line2"></div>
       <div class="english">NEWS</div>
     </div>
-    <div class="new">
-      <div class="photo"><img src="../assets/news_1.jpg" alt="" /></div>
-      <router-link to="/newDetails">
-        <div class="title">苹果又遭专利诉讼：因Apple TV快速回放功能侵权</div>
-      </router-link>
-      <div class="date">2021-9-9</div>
-      <div class="content">
-        一家位于佛罗里达州的数字视频公司正在就苹果公司第四代Apple
-        TV的Siri功能提起专利诉讼。这家名为CustomPlay的公司称，是他们早开发了Apple
-        TV和Siri正在使用的这一功能，该功能允许用户可以询问“他说了什么?”以回顾一小段视频。
-      </div>
-      <div class="inline"></div>
-    </div>
-    <!-- <div class="new">
-      <div class="title">苹果又遭专利诉讼：因Apple TV快速回放功能侵权</div>
-      <div class="content">
+    <div class="box">
+      <div class="new" v-for="item in news" :key="item.id">
+        <div class="photo"><img :src="item.cover" alt="" /></div>
         <router-link to="/newDetails">
-          一家位于佛罗里达州的数字视频公司正在就苹果公司第四代Apple
-          TV的Siri功能提起专利诉讼。这家名为CustomPlay的公司称，是他们早开发了Apple
-          TV和Siri正在使用的这一功能，该功能允许用户可以询问“他说了什么?”以回顾一小段视频。
+          <div class="title" @click="newJump(item.id)">{{ item.title }}</div>
         </router-link>
+        <div class="date">
+          {{ moment(item.publish_time).format("YYYY-MM-DD") }}
+        </div>
+        <div class="content">
+          {{ item["content-title"] }}
+        </div>
+        <div class="inline"></div>
       </div>
-      <div class="date">2021-9-9</div>
-      <div class="inline"></div>
-    </div> -->
+    </div>
   </div>
 </template>
 
 <script>
 import { test } from "@/api/queryHouse.js";
+import moment from "moment";
+import { newsFindAll } from "@/api/news.js";
+
 export default {
   data() {
-    return {};
+    return {
+      news: [],
+      moment,
+    };
   },
   computed: {},
   methods: {
+    newJump(id) {
+      this.$router.push({
+        name: "NewDetails",
+        query: {
+          id: id,
+        },
+      });
+    },
+    async newsFindAll() {
+      let res = await newsFindAll();
+      this.news = res.data;
+      console.log(this.news);
+    },
     async a() {
       let res = await test();
       console.log(res);
@@ -63,14 +58,14 @@ export default {
   },
   created() {
     this.a();
+    this.newsFindAll();
   },
   mounted() {},
 };
 </script>
 <style scoped>
 .news {
-  width: 1100px;
-  height: 500px;
+  width: 1200px;
   margin: 50px auto;
 }
 .header {
@@ -107,12 +102,16 @@ export default {
   left: 46.5%;
   top: 50%;
 }
+.box{
+  width: 1300px;
+  display: flex;
+  flex-wrap: wrap;
+}
 .new {
   position: relative;
   width: 600px;
-  height: 150px;
-  /* background-color: aqua; */
-  /* display: flex; */
+  height: 200px;
+  margin: 20px;
 }
 .photo {
   text-align: left;

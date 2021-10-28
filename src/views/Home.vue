@@ -2,13 +2,13 @@
  * @Description: 
  * @Author: Mogy
  * @Date: 2021-10-13 15:44:13
- * @LastEditors: Mogy
- * @LastEditTime: 2021-10-16 11:02:29
+ * @LastEditors: ljy
+ * @LastEditTime: 2021-10-28 16:42:55
 -->
 <template>
   <div>
     <el-carousel trigger="click" height="650px">
-      <el-carousel-item v-for="item in imgs" :key="item">
+      <el-carousel-item v-for="item in imgs" :key="item.id">
         <div class="carousel_text">
           <div class="carousel_text_box">
             <div class="carousel_text_box_title1" style="text-align: left">
@@ -28,7 +28,7 @@
           </div>
         </div>
         <img
-          src="@/assets/bgimg1.jpg"
+          :src="item.url"
           alt="图片加载失败"
           style="width: 100%; height: 100%"
         />
@@ -47,21 +47,25 @@
       </div>
       <div class="news_main mt50px">
         <div class="news_list" id="news_list" style="opacity: 0">
-          <div class="news_one" v-for="item in 4" :key="item">
+          <div class="news_one" v-for="item in news" :key="item.id">
             <div class="news_img">
               <img
-                src="@/assets/news_1.jpg"
+                :src="item.cover"
                 alt=""
                 style="width: 180px; height: 107px"
               />
             </div>
             <div>
               <div class="news_one_title_box">
-                <span class="news_one_title">国土资源数据共享开放平台将建</span>
-                <span>2019-11-21</span>
+                <span class="news_one_title" @click="newJump(item.id)">{{
+                  item.title
+                }}</span>
+                <span>{{
+                  moment(item.publish_time).format("YYYY-MM-DD")
+                }}</span>
               </div>
               <div class="news_info">
-                国土资源部今天发布的《关于促进国土资源大数据应用发展的实施意见》显示，到2018年底，我国将初步建成国土资源数据共...
+                {{ item["content-title"] }}
               </div>
             </div>
           </div>
@@ -91,16 +95,8 @@
       </div>
       <div class="about_main mt50px">
         <div id="about_info" class="about_info mb100px" style="opacity: 0">
-          <span>
-            <p class="info_p">
-              xx信房地产股份有限公司成立于1995年7月，拥有建设部颁发优质开发资质、设计资质、物业服务资质。在
-            </p>
-            <p class="info_p">
-              其21年的发展历程中，先后获得“中国房地产品牌企业xx强”、“中国城市运营商xx强”、“中国值得尊敬的房地产
-            </p>
-            <p class="info_p">
-              品牌企业”等荣誉称号，所建设的项目多次获得鲁班奖、广厦奖、…
-            </p>
+          <span class="info_p">
+            {{ describe }}
           </span>
         </div>
         <div class="about_body clearfix">
@@ -118,13 +114,20 @@
               style="width: 246px; height: 246px"
             />
           </div>
-          <div style="opacity: 0" class="about_spans">上市公司/资金雄厚</div>
-          <div style="opacity: 0" class="about_spans">天道酬勤/诚信服务</div>
+          <div
+            style="opacity: 0"
+            class="about_spans"
+            v-for="item in aboutsTag"
+            :key="item.id"
+          >
+            {{ item.content }}
+          </div>
+          <!-- <div style="opacity: 0" class="about_spans">天道酬勤/诚信服务</div>
           <div style="opacity: 0" class="about_spans">思想发展/开拓发展</div>
           <div style="opacity: 0" class="about_spans">实力强大/安全保障</div>
           <div style="opacity: 0" class="about_spans">技术保障/安全完善</div>
           <div style="opacity: 0" class="about_spans">客户为主/优质保障</div>
-          <div style="opacity: 0" class="about_spans">立定对象/遍布全国</div>
+          <div style="opacity: 0" class="about_spans">立定对象/遍布全国</div> -->
         </div>
       </div>
     </div>
@@ -132,15 +135,58 @@
 </template>
 
 <script>
+import { findAllTag, findAll } from "@/api/findAllTag.js";
+import { queryOne } from "@/api/carousel.js";
+import { newsFindAll } from "@/api/news.js";
 import $ from "jquery";
+import moment from "moment";
 export default {
   data() {
     return {
-      imgs: ["@/assets/bgimg1.jpg", "@/assets/bgimg2.jpg"],
+      imgs: [],
+      aboutsTag: [],
+      describe: "",
+      news: [],
+      moment,
     };
   },
   computed: {},
   methods: {
+    newJump(id) {
+      this.$router.push({
+        name: "NewDetails",
+        query: {
+          id: id,
+        },
+      });
+    },
+    async findAllTag() {
+      let res = await findAllTag();
+      this.aboutsTag = res.data;
+      // console.log(this.aboutsTag);
+    },
+    async findAll() {
+      let res = await findAll();
+      // let {describe} = res.data[0];
+      // this.describe = describe;
+      // console.log(describe);
+      this.describe = res.data[0].describe;
+      // console.log(this.describe);
+    },
+    async queryOne() {
+      let res = await queryOne({ type: 1 });
+      this.imgs = res.data;
+      // console.log(this.imgs);
+    },
+    async newsFindAll() {
+      let res = await newsFindAll();
+      // for (let i = 0; i < res.data.length; i++) {
+      //   const element = array[i];
+
+      // }
+      this.news = res.data;
+      console.log(this.news);
+    },
     isVisibled(id) {
       // 判断某个 div 是否在浏览器可见区域
       let dom = null;
@@ -207,6 +253,10 @@ export default {
     window.onscroll = () => {
       this.getModuleHeight();
     };
+    this.findAllTag();
+    this.findAll();
+    this.queryOne();
+    this.newsFindAll();
   },
   mounted() {},
 };
@@ -305,9 +355,16 @@ export default {
           }
         }
         .news_info {
-          font-size: 14px;
-          color: #666666;
-          text-align: left;
+          font-size: 16px;
+          margin-top: 10px;
+          top: 60px;
+          left: 210px;
+          width: 380px;
+          /* text-overflow: ellipsis; */
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 3;
         }
       }
     }
@@ -378,6 +435,9 @@ export default {
   .about_main {
     .about_info {
       .info_p {
+        display: block;
+        margin: 0 auto;
+        width: 1200px;
         line-height: 36px;
         color: #888888;
       }
