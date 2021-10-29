@@ -3,7 +3,7 @@
  * @Author: Mogy
  * @Date: 2021-10-13 15:44:13
  * @LastEditors: ljy
- * @LastEditTime: 2021-10-28 16:42:55
+ * @LastEditTime: 2021-10-29 15:43:33
 -->
 <template>
   <div>
@@ -351,7 +351,11 @@ export default {
           .news_one_title {
             text-align: left;
             width: 243px;
-            font-size: 16px;
+            font-size: 18px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
           }
         }
         .news_info {

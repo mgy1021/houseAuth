@@ -9,9 +9,7 @@
     <div class="box">
       <div class="new" v-for="item in news" :key="item.id">
         <div class="photo"><img :src="item.cover" alt="" /></div>
-        <router-link to="/newDetails">
           <div class="title" @click="newJump(item.id)">{{ item.title }}</div>
-        </router-link>
         <div class="date">
           {{ moment(item.publish_time).format("YYYY-MM-DD") }}
         </div>
@@ -65,7 +63,7 @@ export default {
 </script>
 <style scoped>
 .news {
-  width: 1200px;
+  width: 1300px;
   margin: 50px auto;
 }
 .header {
@@ -80,11 +78,11 @@ export default {
   background-color: #ccc;
 }
 .line1 {
-  left: 28%;
+  left: 32%;
   top: 37%;
 }
 .line2 {
-  right: 28%;
+  right: 32%;
   top: 37%;
 }
 .head {
@@ -96,7 +94,7 @@ export default {
 }
 .english {
   margin-top: 10px;
-  font-size: 26px;
+  font-size: 28px;
   color: #ccc;
   position: absolute;
   left: 46.5%;
@@ -130,6 +128,10 @@ export default {
   top: 5px;
   left: 210px;
   font-size: 18px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
 }
 .date {
   top: 5px;
