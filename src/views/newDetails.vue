@@ -3,45 +3,102 @@
  * @Author: ljy
  * @Date: 2021-10-22 15:38:36
  * @LastEditors: ljy
- * @LastEditTime: 2021-10-22 16:22:02
+ * @LastEditTime: 2021-10-28 17:26:19
 -->
 <template>
-  <div class="details">
-      <div class="title">苹果又遭专利诉讼：因Apple TV快速回放功能侵权</div>
-      <div class="date">发表时间：2021-9-9</div>
-      <div class="content">
-          一家位于佛罗里达州的数字视频公司正在就苹果公司第四代Apple TV的Siri功能提起专利诉讼。这家名为CustomPlay的公司称，是他们早开发了Apple TV和Siri正在使用的这一功能，该功能允许用户可以询问“他说了什么?”以回顾一小段视频。
-这一功能是与tvOS一同引入的，用户可以轻松地在10秒内快速回放一部电影或电视剧的某个片段，以便捕捉到可能错过的任何对话。在回放期间，字幕也可以暂时启用，以帮助观众理解所讲的内容。
-CustomPlay表示，他们是这项功能的初发明人，苹果侵犯了他们的专利。该专利的美国专利号6,408,128 B1，于1998年申请，并于四年后的2002年获批。
-该专利描述了一项通过按动“什么”按钮“有能力激活重放功能”的远程控制设计，可以自动倒回到之前定义的播放时间，并打开字幕，就像苹果的功能一样，但专利中不包括语音激活。
-在向美国佛罗里达州南部地区法院提交的诉讼文件中，CustomPlay表示，曾在2014年与苹果公司就合作关系进行了接触。法庭文件显示，该公司曾多次向苹果高管发送电子邮件，希望能建立一段关系，但苹果似乎从未做出回应。因此，CustomPlay认为，苹果知道自己的专利，但却在没有获得许可的前提下就使用了这一功能。
-CustomPlay在其网站上宣传为iOS做的几款应用，其中包括PopcornTrivia和CustomPlay，这两款应用都使用了“什么?””功能。该公司正在寻求得到苹果的法律赔偿。苹果尚未对诉讼做出回应。
+  <div class="Det">
+    <el-carousel height="500px">
+      <el-carousel-item v-for="item in imgs" :key="item.id">
+        <img :src="item.url" alt="" />
+      </el-carousel-item>
+    </el-carousel>
+    <div class="details">
+      <div class="title">{{ newDet.title }}</div>
+      <div class="date">
+        {{ moment(newDet.publish_time).format("YYYY-MM-DD") }}
       </div>
+      <div class="content" v-html="newDet.content">
+        {{ newDet.content }}
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { newsFindAll } from "@/api/news.js";
+import moment from "moment";
+import { queryOne } from "@/api/carousel.js";
+
 export default {
   data() {
     return {
+      newDet: {},
+      id: 0,
+      moment,
+      imgs: [],
     };
   },
   computed: {},
-  methods: {},
-  created() {},
-  mounted() {}
+  methods: {
+    async queryOne() {
+      let res = await queryOne({ type: 1 });
+      this.imgs = res.data;
+      // console.log(this.imgs);
+    },
+    async newsFindAll() {
+      let res = await newsFindAll();
+      this.newDet = res.data[this.id];
+      console.log(this.newDet);
+    },
+  },
+  created() {
+    this.id = this.$route.query.id;
+    this.newsFindAll();
+    this.queryOne();
+  },
+  mounted() {},
 };
 </script>
 <style scoped>
-.details{
-    width: 1100px;
-    margin: 50px auto;
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 14px;
+  opacity: 0.75;
+  line-height: 150px;
+  margin: 0;
 }
-.title,.content,.date{
-    text-align: left;
-    margin-bottom: 20px;
+
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
 }
-.title{
-    font-size: 20px;
+
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
+}
+img {
+  width: 100%;
+  height: 100%;
+}
+.details {
+  width: 1100px;
+  margin: 0 auto;
+  position: relative;
+}
+.title,
+.content,
+.date {
+  text-align: left;
+}
+.title {
+  font-size: 20px;
+  margin: 50px 0;
+}
+.date {
+  position: absolute;
+  right: 0;
+  top: 10px;
+}
+.content{
+  margin-bottom: 50px;
 }
 </style>

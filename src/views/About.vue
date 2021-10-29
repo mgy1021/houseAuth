@@ -3,7 +3,7 @@
  * @Author: ljy
  * @Date: 2021-10-22 11:29:02
  * @LastEditors: ljy
- * @LastEditTime: 2021-10-26 10:55:48
+ * @LastEditTime: 2021-10-27 13:34:09
 -->
 <template>
   <div class="about">
@@ -84,12 +84,11 @@ export default {
 }
 .join{
   width: 100%;
-  background-color: rgb(32, 32, 32);
+  background-color: rgb(248, 248, 248);
   height: 300px;
   margin-bottom: 50px;
 }
 .tit{
-  color: white;
   font-size: 24px;
   padding-top: 20px;
 }
