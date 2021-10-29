@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d2080b7"],{a2b2:function(n,t,e){"use strict";e.r(t);var a=function(){var n=this,t=n.$createElement,e=n._self._c||t;return e("div",[n._v("房产信息上链")])},c=[],u={data:function(){return{}},computed:{},methods:{},created:function(){},mounted:function(){}},o=u,r=e("cba8"),d=Object(r["a"])(o,a,c,!1,null,"27a4a3a9",null);t["default"]=d.exports}}]);
+//# sourceMappingURL=chunk-2d2080b7.f83ea255.js.map

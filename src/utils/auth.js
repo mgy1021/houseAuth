@@ -3,7 +3,7 @@
  * @Author: Mogy
  * @Date: 2021-10-23 11:25:32
  * @LastEditors: Mogy
- * @LastEditTime: 2021-10-23 11:28:06
+ * @LastEditTime: 2021-10-29 13:01:53
  */
 
 import Cookies from "js-cookie";
@@ -16,7 +16,7 @@ export function setToken(token) {
 
 // 取token
 export function getToken() {
-    Cookies.get(tokenKey)
+    return Cookies.get(tokenKey)
 }
 
 // 移除token

@@ -3,7 +3,7 @@
  * @Author: Mogy
  * @Date: 2021-10-15 13:43:30
  * @LastEditors: Mogy
- * @LastEditTime: 2021-10-23 12:38:13
+ * @LastEditTime: 2021-10-29 13:49:45
 -->
 <template>
   <div>
@@ -38,12 +38,13 @@
             </div>
           </el-form-item>
           <el-form-item class="login_item">
-            <div class="textleft login_item_title">房产编号：</div>
+            <div class="textleft login_item_title">姓名：</div>
             <div>
               <input
                 type="text"
                 style="width: 100%"
-                placeholder="请输入房产编号"
+                placeholder="请输入姓名"
+                v-model="userName"
               />
             </div>
           </el-form-item>
@@ -132,6 +133,7 @@ export default {
     return {
       // 查询资产参数
       inumber: "",
+      userName: "",
       input3: "",
       select: 0,
       form: {},
@@ -146,22 +148,39 @@ export default {
     },
 
     toSearch() {
+      if (!this.inumber) {
+        this.$message.error("请输入身份号码!");
+        return;
+      }
+      if (!this.userName) {
+        this.$message.error("请输入姓名");
+        return;
+      }
       this.loading = true;
       this.toLogin();
     },
     toLogin() {
       axios
-        .get("http://localhost:3081/network/getConnectFile")
+        .get("http://localhost:3082/network/getConnectFile")
         .then(async (res) => {
           this.loading = false;
           // console.log(res.data, "JSON");
           // this.queryOneHouse(res.data);
           let v = await login({
             inumber: this.inumber,
+            userName: this.userName,
             JSON: res.data,
           });
           if (v.status === 200) {
-            this.$router.push({ path: "/house" });
+            setToken(v.token);
+            this.$message.success(v.message);
+            this.$router.push({
+              path: "/house",
+              query: {
+                iNumber: this.inumber,
+                userName: this.userName,
+              },
+            });
           }
           // setToken(v.data);
           // this.$router.push({ path: "/house" });

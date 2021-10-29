@@ -3,16 +3,23 @@
  * @Author: Mogy
  * @Date: 2021-10-13 15:44:13
  * @LastEditors: Mogy
- * @LastEditTime: 2021-10-26 14:34:25
+ * @LastEditTime: 2021-10-29 09:29:21
 -->
 <template>
   <div id="app">
     <!-- 回到顶部 -->
     <el-backtop :bottom="60" style="height: 50px; width: 50px">
-      <img src="@/assets/toTop.png" alt="" style="height: 100%; width: 100%" />
+      <img src="@/assets/toTop.png" alt="" />
     </el-backtop>
     <el-container>
       <el-header style="height: 130px">
+        <div class="logo">
+          <img
+            src="./assets/logo2.png"
+            alt=""
+            style="height: 100px; width: 100px"
+          />
+        </div>
         <div class="title">
           <span>智慧房产认证系统</span>
         </div>
@@ -99,12 +106,20 @@ export default {
 .el-header {
   position: relative;
 }
+.el-header .logo {
+  // height: 40px;
+  position: absolute;
+  top: 50%;
+  left: 7%;
+  margin-top: -55px;
+}
 .el-header .title {
   height: 40px;
   position: absolute;
   top: 50%;
-  left: 12%;
+  left: 15%;
   margin-top: -20px;
+  color: #17294f;
 }
 .el-header .menu {
   /* line-height: 130px; */

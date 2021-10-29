@@ -3,7 +3,7 @@
  * @Author: Mogy
  * @Date: 2021-10-21 13:08:06
  * @LastEditors: Mogy
- * @LastEditTime: 2021-10-23 10:48:29
+ * @LastEditTime: 2021-10-29 13:54:00
 -->
 <template>
   <div class="mb50px">
@@ -137,18 +137,18 @@
     </div>
   </div>
 </template>
-    </div>
-  </div>
-</template>
+
 
 <script>
 import { queryOneHouse } from "@/api/queryHouse.js";
+import { getToken } from "@/utils/auth.js";
 export default {
   data() {
     return {
       userInfo: {},
       tableData: [],
-      inumber: "450924199910215313",
+      inumber: "450924199910218564",
+      userName: "小李",
       size: "",
     };
   },
@@ -159,7 +159,11 @@ export default {
       this.$router.push({ path: "/queryHouse" });
     },
     async queryOneHouse() {
-      let res = await queryOneHouse({ inumber: this.inumber });
+      let res = await queryOneHouse({
+        iNumber: this.$route.query.iNumber,
+        userName: this.$route.query.userName,
+        token: getToken(),
+      });
       // console.log(res.data, "queryOneHouse");
       this.userInfo = res.data;
       this.tableData = res.data.houses;
@@ -172,7 +176,7 @@ export default {
     },
   },
   created() {
-    // this.queryOneHouse();
+    this.queryOneHouse();
   },
   mounted() {},
 };
