@@ -2,8 +2,8 @@
  * @Description: 
  * @Author: ljy
  * @Date: 2021-10-22 15:38:36
- * @LastEditors: ljy
- * @LastEditTime: 2021-10-28 17:26:19
+ * @LastEditors: Mogy
+ * @LastEditTime: 2021-10-29 15:44:36
 -->
 <template>
   <div class="Det">
@@ -98,7 +98,7 @@ img {
   right: 0;
   top: 10px;
 }
-.content{
+.content {
   margin-bottom: 50px;
 }
 </style>

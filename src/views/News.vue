@@ -9,9 +9,7 @@
     <div class="box">
       <div class="new" v-for="item in news" :key="item.id">
         <div class="photo"><img :src="item.cover" alt="" /></div>
-        <router-link to="/newDetails">
-          <div class="title" @click="newJump(item.id)">{{ item.title }}</div>
-        </router-link>
+        <div class="title" @click="newJump(item.id)">{{ item.title }}</div>
         <div class="date">
           {{ moment(item.publish_time).format("YYYY-MM-DD") }}
         </div>
@@ -40,7 +38,7 @@ export default {
   methods: {
     newJump(id) {
       this.$router.push({
-        name: "NewDetails",
+        path: "/newDetails",
         query: {
           id: id,
         },
@@ -102,7 +100,7 @@ export default {
   left: 46.5%;
   top: 50%;
 }
-.box{
+.box {
   width: 1300px;
   display: flex;
   flex-wrap: wrap;
