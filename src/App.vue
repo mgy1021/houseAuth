@@ -3,7 +3,7 @@
  * @Author: Mogy
  * @Date: 2021-10-13 15:44:13
  * @LastEditors: Mogy
- * @LastEditTime: 2021-10-29 09:29:21
+ * @LastEditTime: 2021-11-29 16:16:27
 -->
 <template>
   <div id="app">
@@ -46,13 +46,13 @@
               >房产查询</router-link
             >
           </li>
-          <li @click="changeTag('信息上链')">
+          <!-- <li @click="changeTag('信息上链')">
             <router-link
               to="/houseUpdate"
               :class="{ active: isActive == '信息上链' }"
               >信息上链</router-link
             >
-          </li>
+          </li> -->
         </ul>
       </el-header>
       <div class="main">
@@ -82,24 +82,24 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       isActive: "首页",
     };
   },
   computed: {},
   methods: {
-    changeTag(tagName) {
+    changeTag (tagName) {
       this.$nextTick(() => {
         console.log(tagName);
         this.isActive = tagName;
       });
     },
   },
-  created() {
+  created () {
     // this.changeTag("首页");
   },
-  mounted() {},
+  mounted () { },
 };
 </script>
 <style lang="less" scoped>

@@ -1,22 +1,25 @@
 <template>
-  <div class="news">
-    <div class="header">
-      <div class="line1"></div>
-      <div class="head">新闻资讯</div>
-      <div class="line2"></div>
-      <div class="english">NEWS</div>
-    </div>
-    <div class="box">
-      <div class="new" v-for="item in news" :key="item.id">
-        <div class="photo"><img :src="item.cover" alt="" /></div>
-        <div class="title" @click="newJump(item.id)">{{ item.title }}</div>
-        <div class="date">
-          {{ moment(item.publish_time).format("YYYY-MM-DD") }}
+  <div>
+    <div class="newsadvertisement mb50px"></div>
+    <div class="news">
+      <div class="header">
+        <div class="line1"></div>
+        <div class="head">新闻资讯</div>
+        <div class="line2"></div>
+        <div class="english">NEWS</div>
+      </div>
+      <div class="box">
+        <div class="new" v-for="item in news" :key="item.id">
+          <div class="photo"><img :src="item.cover" alt="" /></div>
+          <div class="title" @click="newJump(item.id)">{{ item.title }}</div>
+          <div class="date">
+            {{ moment(item.publish_time).format("YYYY-MM-DD") }}
+          </div>
+          <div class="content">
+            {{ item["content-title"] }}
+          </div>
+          <div class="inline"></div>
         </div>
-        <div class="content">
-          {{ item["content-title"] }}
-        </div>
-        <div class="inline"></div>
       </div>
     </div>
   </div>
@@ -28,7 +31,7 @@ import moment from "moment";
 import { newsFindAll } from "@/api/news.js";
 
 export default {
-  data() {
+  data () {
     return {
       news: [],
       moment,
@@ -36,7 +39,7 @@ export default {
   },
   computed: {},
   methods: {
-    newJump(id) {
+    newJump (id) {
       this.$router.push({
         path: "/newDetails",
         query: {
@@ -44,24 +47,28 @@ export default {
         },
       });
     },
-    async newsFindAll() {
+    async newsFindAll () {
       let res = await newsFindAll();
       this.news = res.data;
       console.log(this.news);
     },
-    async a() {
+    async a () {
       let res = await test();
       console.log(res);
     },
   },
-  created() {
+  created () {
     this.a();
     this.newsFindAll();
   },
-  mounted() {},
+  mounted () { },
 };
 </script>
 <style scoped>
+.newsadvertisement {
+  height: 400px;
+  background: url(../assets/house2.jpg);
+}
 .news {
   width: 1300px;
   margin: 50px auto;
@@ -124,6 +131,7 @@ export default {
   position: absolute;
 }
 .title {
+  cursor: pointer;
   width: 280px;
   top: 5px;
   left: 210px;

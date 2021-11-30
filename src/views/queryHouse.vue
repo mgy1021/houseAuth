@@ -3,7 +3,7 @@
  * @Author: Mogy
  * @Date: 2021-10-15 13:43:30
  * @LastEditors: Mogy
- * @LastEditTime: 2021-10-29 15:16:17
+ * @LastEditTime: 2021-11-29 16:09:44
 -->
 <template>
   <div>
@@ -129,7 +129,7 @@ import { queryAllHouse, queryOneHouse } from "@/api/queryHouse.js";
 import { login } from "@/api/user.js";
 import { setToken } from "@/utils/auth.js";
 export default {
-  data() {
+  data () {
     return {
       // 查询资产参数
       inumber: "",
@@ -142,12 +142,12 @@ export default {
   },
   computed: {},
   methods: {
-    async queryAllHouse() {
+    async queryAllHouse () {
       // let res = await queryAllHouse();
       // console.log(res, "queryAll");
     },
 
-    toSearch() {
+    toSearch () {
       if (!this.inumber) {
         this.$message.error("请输入身份号码!");
         return;
@@ -159,10 +159,11 @@ export default {
       this.loading = true;
       this.toLogin();
     },
-    toLogin() {
+    toLogin () {
       axios
-        .get("http://localhost:3082/network/getConnectFile")
+        .get("http://127.0.0.1:3082/network/getConnectFile")
         .then(async (res) => {
+          console.log(res, "res");
           this.loading = false;
           // console.log(res.data, "JSON");
           // this.queryOneHouse(res.data);
@@ -192,17 +193,17 @@ export default {
           this.$message.error("请插入身份认证设备,重新校验!");
         });
     },
-    async queryOneHouse(config) {
+    async queryOneHouse (config) {
       let res = await queryOneHouse({ inumber: this.inumber, JSON: config });
       console.log(res.data, "queryOneHouse");
       // this.userInfo = res.data;
       // this.tableData = res.data.houses;
     },
   },
-  created() {
+  created () {
     // this.queryAllHouse();
   },
-  mounted() {},
+  mounted () { },
 };
 </script>
 <style lang="less" scoped>

@@ -3,7 +3,7 @@
  * @Author: ljy
  * @Date: 2021-10-22 15:38:36
  * @LastEditors: Mogy
- * @LastEditTime: 2021-10-29 15:44:36
+ * @LastEditTime: 2021-11-29 15:14:22
 -->
 <template>
   <div class="Det">
@@ -30,7 +30,7 @@ import moment from "moment";
 import { queryOne } from "@/api/carousel.js";
 
 export default {
-  data() {
+  data () {
     return {
       newDet: {},
       id: 0,
@@ -40,23 +40,22 @@ export default {
   },
   computed: {},
   methods: {
-    async queryOne() {
+    async queryOne () {
       let res = await queryOne({ type: 1 });
       this.imgs = res.data;
       // console.log(this.imgs);
     },
-    async newsFindAll() {
+    async newsFindAll () {
       let res = await newsFindAll();
-      this.newDet = res.data[this.id];
-      console.log(this.newDet);
+      this.newDet = res.data[this.id - 1];
     },
   },
-  created() {
+  created () {
     this.id = this.$route.query.id;
     this.newsFindAll();
     this.queryOne();
   },
-  mounted() {},
+  mounted () { },
 };
 </script>
 <style scoped>
@@ -80,6 +79,7 @@ img {
   height: 100%;
 }
 .details {
+  /* padding: 10%; */
   width: 1100px;
   margin: 0 auto;
   position: relative;
@@ -100,5 +100,6 @@ img {
 }
 .content {
   margin-bottom: 50px;
+  padding: 10%;
 }
 </style>
