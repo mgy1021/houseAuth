@@ -5,7 +5,7 @@
 
 ![image-20211112112720010](https://img.mogy.top/image-20211112112720010.png)
 
-![image-20211112112735745](https://img.mogy.top/image-20211112112720010.png)
+![image-20211112112735745](https://img.mogy.top/image-20211112112735745.png)
 
 ## 🛠 技术栈
 
